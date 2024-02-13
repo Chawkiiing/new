@@ -1,60 +1,50 @@
 ﻿using System;
 
-namespace Activity2;
 
-public class Car { 
-
-       public string Brand { get; set; }
-       public string Color { get; set; }
-       public int Price { get; set; }
-
-    public void Honk(string stringVariable) {
-
-        Console.WriteLine($"{stringVariable}: Honk!!");
+namespace AssignmentQuiz1
+{
+    class Person
+    {
+        public string Name { get; set; }
+        public int Weight { get; set; }
     }
 
-}
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Person> people = new List<Person>();
 
-class Program
-{
-    static void Main(string[] args) {
+            bool addingPeople = true;
 
-        List<Car> list = new List<Car>();
-
-        while (true) {
-
-            Console.WriteLine("Enter new data? [Y/N]");
-
-            if (Console.ReadLine() == "N")
+            while (addingPeople)
             {
-                break;
+                Console.WriteLine("Enter the name of the person (or type 'done' to finish adding people):");
+                string name = Console.ReadLine();
+
+                if (name.ToLower() == "done")
+                {
+                    addingPeople = false;
+                    break;
+                }
+
+                Console.WriteLine("Enter the weight of the person:");
+                int weight = int.Parse(Console.ReadLine());
+
+                people.Add(new Person { Name = name, Weight = weight });
             }
 
-            Car car1 = new Car();
+            Console.WriteLine("\nList of People:");
+            int totalWeight = 0;
+            foreach (var person in people)
+            {
+                Console.WriteLine($"Name: {person.Name}, Weight: {person.Weight}");
+                totalWeight += person.Weight;
+            }
 
-            Console.WriteLine("Enter Car Brand = ");
-            car1.Brand = Console.ReadLine();
+            Console.WriteLine($"\nTotal Weight of all people: {totalWeight}");
 
-            Console.WriteLine("Enter Car Color = ");
-            car1.Color = Console.ReadLine();
-
-            Console.WriteLine("Enter Car Price = ");
-            car1.Price = int.Parse(Console.ReadLine());
-
-            list.Add(car1);
-
+            Console.ReadLine(); // to prevent the console from closing immediately
         }
-
-        list.ForEach(x =>
-        {
-
-            Console.WriteLine(x.Brand);
-            Console.WriteLine(x.Color);
-            Console.WriteLine(x.Price);
-            Console.WriteLine("==================");
-        });
-
     }
-
-
 }
